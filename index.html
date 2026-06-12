@@ -245,7 +245,7 @@ function buildSignature(d) {
   var contactRows = '';
   if (d.telefono) {
     contactRows +=
-      '<div style="padding-top:2px;"><a href="tel:' + d.telefono.replace(/\s/g,'') + '" style="text-decoration:none;color:' + dark + ';">' +
+      '<div style="padding-top:2px;"><a href="' + waUrl + '" target="_blank" style="text-decoration:none;color:' + dark + ';">' +
       '<img src="' + asset('icons/phone.png') + '" width="15" height="15" alt="" style="vertical-align:-2px;border:0;">' +
       '<span style="font-family:' + F + ';font-size:14px;font-weight:600;color:' + dark + ';">&nbsp;&nbsp;' + esc(d.telefono) + '</span></a></div>';
   }
