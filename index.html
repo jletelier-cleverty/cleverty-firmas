@@ -274,8 +274,8 @@ function buildSignature(d) {
       '<td style="width:1px;background-color:#E8E9ED;font-size:1px;">&nbsp;</td>' +
       // DATOS
       '<td style="vertical-align:middle;padding-left:24px;">' +
-        '<div style="font-family:' + F + ';font-size:24px;font-weight:800;color:' + dark + ';line-height:1.2;letter-spacing:-0.3px;">' + esc(d.nombre) + '</div>' +
-        '<div style="font-size:15px;line-height:1.5;padding-top:3px;">' +
+        '<div style="font-family:' + F + ';font-size:24px;font-weight:700;color:' + dark + ';line-height:1.2;letter-spacing:-0.3px;white-space:nowrap;">' + esc(d.nombre) + '</div>' +
+        '<div style="font-size:15px;line-height:1.5;padding-top:3px;white-space:nowrap;">' +
           '<span style="font-family:' + F + ';font-weight:600;color:' + dark + ';">' + esc(d.cargo) + '</span>' +
           '<span style="font-family:' + F + ';color:' + dot + ';font-weight:600;">&nbsp;&middot;&nbsp;</span>' +
           '<a href="' + LINKS.web + '" target="_blank" style="text-decoration:none;"><span style="font-family:' + F + ';font-weight:600;color:#7B2FFF;">Cleverty</span></a>' +
@@ -287,7 +287,7 @@ function buildSignature(d) {
       // LOGO + APPS
       '<td style="vertical-align:middle;padding-left:56px;text-align:right;">' +
         '<a href="' + LINKS.web + '" target="_blank" style="text-decoration:none;"><img src="' + asset('cleverty-logo-firma.png') + '" alt="Cleverty" width="136" style="width:136px;height:auto;border:0;"></a>' +
-        '<div style="font-family:' + F + ';font-size:10px;font-weight:600;color:' + gray + ';letter-spacing:2.5px;padding:14px 0 8px;">DESCARGA LAS APPS</div>' +
+        '<div style="font-family:' + F + ';font-size:10px;font-weight:600;color:' + gray + ';letter-spacing:2.5px;padding:14px 0 8px;white-space:nowrap;">DESCARGA LAS APPS</div>' +
         '<div><a href="' + LINKS.appstore + '" target="_blank" style="text-decoration:none;color:' + dark + ';">' +
           '<img src="' + asset('icons/apple.png') + '" width="14" height="14" alt="" style="vertical-align:-2px;border:0;">' +
           '<span style="font-family:' + F + ';font-size:13.5px;font-weight:600;color:' + dark + ';">&nbsp;&nbsp;App Store</span></a></div>' +
