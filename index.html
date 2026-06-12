@@ -242,61 +242,67 @@ function buildSignature(d) {
   // WhatsApp personal a partir del teléfono
   var waUrl = waLink(d.telefono);
 
-  var contactRows = '';
+  var phoneRow = '';
   if (d.telefono) {
-    contactRows +=
-      '<div style="padding-top:2px;"><a href="' + waUrl + '" target="_blank" style="text-decoration:none;color:' + dark + ';">' +
+    phoneRow =
+      '<div style="padding-top:10px;"><a href="' + waUrl + '" target="_blank" style="text-decoration:none;color:' + dark + ';">' +
       '<img src="' + asset('icons/phone.png') + '" width="15" height="15" alt="" style="vertical-align:-2px;border:0;">' +
-      '<span style="font-family:' + F + ';font-size:14px;font-weight:600;color:' + dark + ';">&nbsp;&nbsp;' + esc(d.telefono) + '</span></a></div>';
+      '<span style="font-family:' + F + ';font-size:14px;font-weight:600;color:' + dark + ';">&nbsp;&nbsp;' + esc(formatPhone(d.telefono)) + '</span></a></div>';
   }
-  contactRows +=
-    '<div style="padding-top:7px;"><a href="' + LINKS.web + '" target="_blank" style="text-decoration:none;color:' + dark + ';">' +
-    '<img src="' + asset('icons/globe.png') + '" width="15" height="15" alt="" style="vertical-align:-2px;border:0;">' +
-    '<span style="font-family:' + F + ';font-size:14px;font-weight:600;color:' + dark + ';">&nbsp;&nbsp;www.cleverty.app</span></a></div>';
 
   var socialRow =
-    '<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-top:14px;"><tr>' +
-      '<td style="padding-right:10px;"><a href="' + LINKS.linkedin + '" target="_blank" style="text-decoration:none;"><img src="' + asset('icons/linkedin.png') + '" width="34" height="34" alt="LinkedIn" style="display:block;border:0;"></a></td>' +
-      '<td style="padding-right:10px;"><a href="' + LINKS.instagram + '" target="_blank" style="text-decoration:none;"><img src="' + asset('icons/instagram.png') + '" width="34" height="34" alt="Instagram" style="display:block;border:0;"></a></td>' +
+    '<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-top:12px;"><tr>' +
+      '<td style="padding-right:9px;"><a href="' + LINKS.linkedin + '" target="_blank" style="text-decoration:none;"><img src="' + asset('icons/linkedin.png') + '" width="32" height="32" alt="LinkedIn" style="display:block;border:0;"></a></td>' +
+      '<td style="padding-right:9px;"><a href="' + LINKS.instagram + '" target="_blank" style="text-decoration:none;"><img src="' + asset('icons/instagram.png') + '" width="32" height="32" alt="Instagram" style="display:block;border:0;"></a></td>' +
       (d.telefono
-        ? '<td><a href="' + waUrl + '" target="_blank" style="text-decoration:none;"><img src="' + asset('icons/whatsapp.png') + '" width="34" height="34" alt="WhatsApp" style="display:block;border:0;"></a></td>'
+        ? '<td style="padding-right:9px;"><a href="' + waUrl + '" target="_blank" style="text-decoration:none;"><img src="' + asset('icons/whatsapp.png') + '" width="32" height="32" alt="WhatsApp" style="display:block;border:0;"></a></td>'
         : '') +
+      '<td><a href="' + LINKS.web + '" target="_blank" style="text-decoration:none;"><img src="' + asset('icons/web.png') + '" width="32" height="32" alt="cleverty.app" style="display:block;border:0;"></a></td>' +
     '</tr></table>';
 
   return '' +
   '<table cellpadding="0" cellspacing="0" border="0" style="font-family:' + F + ';border-collapse:collapse;white-space:nowrap;">' +
     '<tr>' +
       // FOTO (b/n con anillo gradiente)
-      '<td style="vertical-align:middle;padding-right:24px;">' +
-        '<img src="' + d.foto + '" alt="' + esc(d.nombre) + '" width="112" height="112" style="display:block;width:112px;height:112px;border-radius:50%;border:0;">' +
+      '<td style="vertical-align:middle;padding-right:22px;">' +
+        '<img src="' + d.foto + '" alt="' + esc(d.nombre) + '" width="100" height="100" style="display:block;width:100px;height:100px;border-radius:50%;border:0;">' +
       '</td>' +
-      // SEPARADOR (entre foto e info, como el original)
+      // SEPARADOR (entre foto e info)
       '<td style="width:1px;background-color:#E8E9ED;font-size:1px;">&nbsp;</td>' +
       // DATOS
-      '<td style="vertical-align:middle;padding-left:24px;">' +
-        '<div style="font-family:' + F + ';font-size:21px;font-weight:700;color:' + dark + ';line-height:1.2;letter-spacing:-0.3px;white-space:nowrap;">' + esc(d.nombre) + '</div>' +
-        '<div style="font-size:15px;line-height:1.5;padding-top:3px;white-space:nowrap;">' +
+      '<td style="vertical-align:middle;padding-left:22px;">' +
+        '<div style="font-family:' + F + ';font-size:20px;font-weight:700;color:' + dark + ';line-height:1.2;letter-spacing:-0.3px;white-space:nowrap;">' + esc(d.nombre) + '</div>' +
+        '<div style="font-size:14px;line-height:1.4;padding-top:2px;white-space:nowrap;">' +
           '<span style="font-family:' + F + ';font-weight:600;color:' + dark + ';">' + esc(d.cargo) + '</span>' +
           '<span style="font-family:' + F + ';color:' + dot + ';font-weight:600;">&nbsp;&middot;&nbsp;</span>' +
           '<a href="' + LINKS.web + '" target="_blank" style="text-decoration:none;"><span style="font-family:' + F + ';font-weight:600;color:#7B2FFF;">Cleverty</span></a>' +
         '</div>' +
-        '<div style="font-family:' + F + ';font-size:10.5px;font-weight:600;color:' + gray + ';letter-spacing:2.5px;padding:6px 0 14px;">EDIFICIOS DEL FUTURO</div>' +
-        contactRows +
+        phoneRow +
         socialRow +
       '</td>' +
-      // LOGO + APPS
+      // LOGO + EDIFICIOS DEL FUTURO + APPS
       '<td style="vertical-align:middle;padding-left:56px;text-align:right;">' +
-        '<a href="' + LINKS.web + '" target="_blank" style="text-decoration:none;"><img src="' + asset('cleverty-logo-firma.png') + '" alt="Cleverty" width="136" style="width:136px;height:auto;border:0;"></a>' +
-        '<div style="font-family:' + F + ';font-size:10px;font-weight:600;color:' + gray + ';letter-spacing:2.5px;padding:14px 0 8px;white-space:nowrap;">DESCARGA LAS APPS</div>' +
+        '<a href="' + LINKS.web + '" target="_blank" style="text-decoration:none;"><img src="' + asset('cleverty-logo-firma.png') + '" alt="Cleverty" width="128" style="width:128px;height:auto;border:0;"></a>' +
+        '<div style="font-family:' + F + ';font-size:9.5px;font-weight:600;color:' + gray + ';letter-spacing:2px;padding:2px 0 14px;white-space:nowrap;">EDIFICIOS DEL FUTURO</div>' +
         '<div><a href="' + LINKS.appstore + '" target="_blank" style="text-decoration:none;color:' + dark + ';">' +
-          '<img src="' + asset('icons/apple.png') + '" width="14" height="14" alt="" style="vertical-align:-2px;border:0;">' +
-          '<span style="font-family:' + F + ';font-size:13.5px;font-weight:600;color:' + dark + ';">&nbsp;&nbsp;App Store</span></a></div>' +
-        '<div style="padding-top:6px;"><a href="' + LINKS.googleplay + '" target="_blank" style="text-decoration:none;color:' + dark + ';">' +
-          '<img src="' + asset('icons/play.png') + '" width="13" height="13" alt="" style="vertical-align:-1px;border:0;">' +
-          '<span style="font-family:' + F + ';font-size:13.5px;font-weight:600;color:' + dark + ';">&nbsp;&nbsp;Google Play</span></a></div>' +
+          '<img src="' + asset('icons/apple.png') + '" width="13" height="13" alt="" style="vertical-align:-2px;border:0;">' +
+          '<span style="font-family:' + F + ';font-size:13px;font-weight:600;color:' + dark + ';">&nbsp;&nbsp;App Store</span></a></div>' +
+        '<div style="padding-top:5px;"><a href="' + LINKS.googleplay + '" target="_blank" style="text-decoration:none;color:' + dark + ';">' +
+          '<img src="' + asset('icons/play.png') + '" width="12" height="12" alt="" style="vertical-align:-1px;border:0;">' +
+          '<span style="font-family:' + F + ';font-size:13px;font-weight:600;color:' + dark + ';">&nbsp;&nbsp;Google Play</span></a></div>' +
       '</td>' +
     '</tr>' +
   '</table>';
+}
+
+// Formatea celular chileno para lectura: +56 9 XXXX XXXX
+function formatPhone(tel) {
+  var d = (tel || '').replace(/\D/g, '');
+  if (d.length === 9 && d.charAt(0) === '9') d = '56' + d;
+  if (d.length === 11 && d.indexOf('569') === 0) {
+    return '+56 9 ' + d.slice(3, 7) + ' ' + d.slice(7);
+  }
+  return tel;
 }
 
 // ============================================================
