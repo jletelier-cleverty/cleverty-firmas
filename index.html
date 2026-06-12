@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cleverty · Generador de Firmas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #7B2FFF;
+    --cyan: #00D4FF;
+    --bg: #0F1011;
+    --card: #18191B;
+    --border: #2E2F34;
+    --text: #EEEEF1;
+    --muted: #9A9BA1;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    min-height: 100vh;
+    padding: 40px 20px 80px;
+  }
+  .wrap { max-width: 1120px; margin: 0 auto; }
+  header { text-align: center; margin-bottom: 40px; }
+  header img { height: 38px; margin-bottom: 18px; }
+  header h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 28px; font-weight: 600; letter-spacing: -0.02em;
+  }
+  header p { color: var(--muted); margin-top: 8px; font-size: 15px; }
+
+  .grid { display: grid; grid-template-columns: 360px 1fr; gap: 28px; align-items: start; }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px;
+  }
+  .card h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px; font-weight: 600; margin-bottom: 20px;
+  }
+  label { display: block; font-size: 13px; color: var(--muted); margin: 16px 0 6px; }
+  label:first-of-type { margin-top: 0; }
+  input[type="text"], input[type="tel"] {
+    width: 100%;
+    background: #0F1011;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: var(--text);
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: border-color .15s;
+  }
+  input:focus { border-color: var(--purple); }
+  input::placeholder { color: #56575D; }
+
+  /* Foto upload */
+  .foto-row { display: flex; align-items: center; gap: 14px; }
+  .foto-row.need { animation: shake .4s; }
+  .foto-row.need .foto-thumb { border-color: #FF5A5A; }
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+  }
+  .foto-thumb {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: #0F1011 center/cover no-repeat;
+    border: 1px dashed var(--border);
+    flex: 0 0 56px;
+    display: flex; align-items: center; justify-content: center;
+    color: #56575D; font-size: 20px;
+  }
+  .foto-thumb.has-foto { border-style: solid; border-color: var(--purple); }
+  .foto-btn {
+    background: #0F1011;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 16px;
+    color: var(--text);
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: border-color .15s;
+  }
+  .foto-btn:hover { border-color: var(--purple); }
+  .foto-hint { font-size: 12px; color: #56575D; margin-top: 6px; }
+  #fotoInput { display: none; }
+
+  .preview-box {
+    background: #FFFFFF;
+    border-radius: 14px;
+    padding: 28px 24px;
+    margin-top: 4px;
+    overflow-x: auto;
+  }
+  .preview-label { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+
+  .btn {
+    display: inline-block;
+    width: 100%;
+    margin-top: 22px;
+    background: linear-gradient(90deg, var(--purple), var(--cyan));
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 14px 28px;
+    font-size: 15px; font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: opacity .15s, transform .1s;
+  }
+  .btn:hover { opacity: .9; }
+  .btn:active { transform: scale(.98); }
+  .btn.copied { background: #1FA56B; }
+  .btn.warn { background: #B33A3A; }
+
+  .steps { margin-top: 28px; }
+  .steps h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px; font-weight: 600; margin-bottom: 16px;
+  }
+  .steps ol { padding-left: 0; list-style: none; counter-reset: paso; }
+  .steps li {
+    counter-increment: paso;
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 10px 0;
+    color: var(--muted); font-size: 14.5px; line-height: 1.55;
+  }
+  .steps li > span { flex: 1; }
+  .steps li::before {
+    content: counter(paso);
+    flex: 0 0 26px; height: 26px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(123,47,255,.18);
+    color: var(--cyan);
+    border-radius: 50%;
+    font-weight: 600; font-size: 13px;
+  }
+  .steps b { color: var(--text); font-weight: 600; }
+  .steps a { color: var(--cyan); text-decoration: none; }
+  footer { text-align: center; margin-top: 50px; color: #56575D; font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <img src="assets/cleverty-logo-portal.png" alt="Cleverty">
+    <h1>Generador de Firmas</h1>
+    <p>Completa tus datos, copia tu firma y pégala en Gmail. Listo.</p>
+  </header>
+
+  <div class="grid">
+    <!-- FORMULARIO -->
+    <div class="card">
+      <h2>Tus datos</h2>
+
+      <label>Tu foto</label>
+      <div class="foto-row" id="fotoRow">
+        <div class="foto-thumb" id="fotoThumb">+</div>
+        <div>
+          <button type="button" class="foto-btn" id="fotoBtn">Subir foto</button>
+          <div class="foto-hint">Idealmente de frente, con buena luz.<br>Se recorta circular y queda en blanco y negro.</div>
+        </div>
+      </div>
+      <input type="file" id="fotoInput" accept="image/*">
+
+      <label for="nombre">Nombre completo</label>
+      <input id="nombre" type="text" placeholder="Ej: José Tomás Letelier" autocomplete="name">
+
+      <label for="cargo">Cargo</label>
+      <input id="cargo" type="text" placeholder="Ej: Co-Founder &amp; CEO">
+
+      <label for="telefono">Teléfono (también se usa para tu WhatsApp)</label>
+      <input id="telefono" type="tel" placeholder="Ej: +56 9 1234 5678" autocomplete="tel">
+
+      <button class="btn" id="copyBtn">Copiar mi firma</button>
+    </div>
+
+    <!-- VISTA PREVIA + INSTRUCCIONES -->
+    <div>
+      <div class="card">
+        <h2>Vista previa</h2>
+        <p class="preview-label">Así se verá tu firma en Gmail:</p>
+        <div class="preview-box" id="previewBox"></div>
+      </div>
+
+      <div class="card steps">
+        <h2>Cómo instalarla en Gmail</h2>
+        <ol>
+          <li><span>Sube tu foto, completa tus datos y aprieta <b>"Copiar mi firma"</b>.</span></li>
+          <li><span>Abre Gmail y anda a <b>Configuración</b> (⚙️ arriba a la derecha) → <b>"Ver todos los ajustes"</b>.</span></li>
+          <li><span>En la pestaña <b>General</b>, baja hasta la sección <b>Firma</b> y aprieta <b>"Crear nueva"</b>. Ponle un nombre (ej: "Cleverty").</span></li>
+          <li><span>Haz clic dentro del cuadro de la firma y pega con <b>⌘V</b> (Mac) o <b>Ctrl+V</b> (Windows).</span></li>
+          <li><span>Más abajo, en <b>"Valores predeterminados de firma"</b>, selecciona tu firma nueva para <b>correos nuevos</b> y para <b>respuestas</b>.</span></li>
+          <li><span>Baja hasta el final y aprieta <b>"Guardar cambios"</b>.</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <footer>Cleverty · Edificios del futuro</footer>
+</div>
+
+<script>
+// ============================================================
+// LINKS OFICIALES (validados)
+// ============================================================
+var LINKS = {
+  web:       'https://www.cleverty.app',
+  linkedin:  'https://www.linkedin.com/company/cleverty-app/',
+  instagram: 'https://www.instagram.com/cleverty_app/',
+  appstore:  'https://apps.apple.com/us/app/cleverty/id1662122342',
+  googleplay:'https://play.google.com/store/apps/details?id=href.cleverty.app&hl=es_CL'
+};
+
+// Base de los assets: relativa en local, absoluta cuando está publicado
+var BASE = (location.protocol === 'file:') ? '' : location.href.replace(/[^/]*$/, '');
+
+function asset(p) { return BASE + 'assets/' + p; }
+
+// ============================================================
+// PLANTILLA DE FIRMA — diseño final
+// ============================================================
+function buildSignature(d) {
+  var F    = "'Poppins','Century Gothic','Avenir Next','Avenir','Segoe UI',Arial,sans-serif"; // Poppins primero; fallbacks geométricos
+  var dark = '#16193A';   // azul marino del diseño
+  var gray = '#A7A9B3';   // gris de los rótulos espaciados
+  var dot  = '#C2C3CB';   // gris del punto separador
+
+  // WhatsApp personal a partir del teléfono
+  var waUrl = waLink(d.telefono);
+
+  var contactRows = '';
+  if (d.telefono) {
+    contactRows +=
+      '<div style="padding-top:2px;"><a href="tel:' + d.telefono.replace(/\s/g,'') + '" style="text-decoration:none;color:' + dark + ';">' +
+      '<img src="' + asset('icons/phone.png') + '" width="15" height="15" alt="" style="vertical-align:-2px;border:0;">' +
+      '<span style="font-family:' + F + ';font-size:14px;font-weight:600;color:' + dark + ';">&nbsp;&nbsp;' + esc(d.telefono) + '</span></a></div>';
+  }
+  contactRows +=
+    '<div style="padding-top:7px;"><a href="' + LINKS.web + '" target="_blank" style="text-decoration:none;color:' + dark + ';">' +
+    '<img src="' + asset('icons/globe.png') + '" width="15" height="15" alt="" style="vertical-align:-2px;border:0;">' +
+    '<span style="font-family:' + F + ';font-size:14px;font-weight:600;color:' + dark + ';">&nbsp;&nbsp;www.cleverty.app</span></a></div>';
+
+  var socialRow =
+    '<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-top:14px;"><tr>' +
+      '<td style="padding-right:10px;"><a href="' + LINKS.linkedin + '" target="_blank" style="text-decoration:none;"><img src="' + asset('icons/linkedin.png') + '" width="34" height="34" alt="LinkedIn" style="display:block;border:0;"></a></td>' +
+      '<td style="padding-right:10px;"><a href="' + LINKS.instagram + '" target="_blank" style="text-decoration:none;"><img src="' + asset('icons/instagram.png') + '" width="34" height="34" alt="Instagram" style="display:block;border:0;"></a></td>' +
+      (d.telefono
+        ? '<td><a href="' + waUrl + '" target="_blank" style="text-decoration:none;"><img src="' + asset('icons/whatsapp.png') + '" width="34" height="34" alt="WhatsApp" style="display:block;border:0;"></a></td>'
+        : '') +
+    '</tr></table>';
+
+  return '' +
+  '<table cellpadding="0" cellspacing="0" border="0" style="font-family:' + F + ';border-collapse:collapse;">' +
+    '<tr>' +
+      // FOTO (b/n con anillo gradiente)
+      '<td style="vertical-align:middle;padding-right:24px;">' +
+        '<img src="' + d.foto + '" alt="' + esc(d.nombre) + '" width="112" height="112" style="display:block;width:112px;height:112px;border-radius:50%;border:0;">' +
+      '</td>' +
+      // SEPARADOR (entre foto e info, como el original)
+      '<td style="width:1px;background-color:#E8E9ED;font-size:1px;">&nbsp;</td>' +
+      // DATOS
+      '<td style="vertical-align:middle;padding-left:24px;">' +
+        '<div style="font-family:' + F + ';font-size:24px;font-weight:800;color:' + dark + ';line-height:1.2;letter-spacing:-0.3px;">' + esc(d.nombre) + '</div>' +
+        '<div style="font-size:15px;line-height:1.5;padding-top:3px;">' +
+          '<span style="font-family:' + F + ';font-weight:600;color:' + dark + ';">' + esc(d.cargo) + '</span>' +
+          '<span style="font-family:' + F + ';color:' + dot + ';font-weight:600;">&nbsp;&middot;&nbsp;</span>' +
+          '<a href="' + LINKS.web + '" target="_blank" style="text-decoration:none;"><span style="font-family:' + F + ';font-weight:600;color:#7B2FFF;">Cleverty</span></a>' +
+        '</div>' +
+        '<div style="font-family:' + F + ';font-size:10.5px;font-weight:600;color:' + gray + ';letter-spacing:2.5px;padding:6px 0 14px;">EDIFICIOS DEL FUTURO</div>' +
+        contactRows +
+        socialRow +
+      '</td>' +
+      // LOGO + APPS
+      '<td style="vertical-align:middle;padding-left:56px;text-align:right;">' +
+        '<a href="' + LINKS.web + '" target="_blank" style="text-decoration:none;"><img src="' + asset('cleverty-logo-firma.png') + '" alt="Cleverty" width="136" style="width:136px;height:auto;border:0;"></a>' +
+        '<div style="font-family:' + F + ';font-size:10px;font-weight:600;color:' + gray + ';letter-spacing:2.5px;padding:14px 0 8px;">DESCARGA LAS APPS</div>' +
+        '<div><a href="' + LINKS.appstore + '" target="_blank" style="text-decoration:none;color:' + dark + ';">' +
+          '<img src="' + asset('icons/apple.png') + '" width="14" height="14" alt="" style="vertical-align:-2px;border:0;">' +
+          '<span style="font-family:' + F + ';font-size:13.5px;font-weight:600;color:' + dark + ';">&nbsp;&nbsp;App Store</span></a></div>' +
+        '<div style="padding-top:6px;"><a href="' + LINKS.googleplay + '" target="_blank" style="text-decoration:none;color:' + dark + ';">' +
+          '<img src="' + asset('icons/play.png') + '" width="13" height="13" alt="" style="vertical-align:-1px;border:0;">' +
+          '<span style="font-family:' + F + ';font-size:13.5px;font-weight:600;color:' + dark + ';">&nbsp;&nbsp;Google Play</span></a></div>' +
+      '</td>' +
+    '</tr>' +
+  '</table>';
+}
+
+// ============================================================
+// Lógica del portal
+// ============================================================
+var fotoData = null;
+
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function waLink(tel) {
+  var d = (tel || '').replace(/\D/g, '');
+  if (d.length === 9 && d.charAt(0) === '9') d = '56' + d; // chileno sin código país
+  return 'https://wa.me/' + d;
+}
+
+function getData() {
+  return {
+    nombre:   document.getElementById('nombre').value.trim()   || 'Nombre Apellido',
+    cargo:    document.getElementById('cargo').value.trim()    || 'Tu cargo',
+    telefono: document.getElementById('telefono').value.trim() || '+56 9 0000 0000',
+    foto:     fotoData || makePlaceholder()
+  };
+}
+
+// Placeholder con iniciales mientras no suben foto (solo vista previa)
+var placeholderCache = {};
+function makePlaceholder() {
+  var nombre = document.getElementById('nombre').value.trim() || 'Nombre Apellido';
+  var parts = nombre.split(/\s+/);
+  var ini = (parts[0] ? parts[0].charAt(0) : '') + (parts[1] ? parts[1].charAt(0) : '');
+  ini = ini.toUpperCase() || 'TÚ';
+  if (placeholderCache[ini]) return placeholderCache[ini];
+  var c = ringCanvas();
+  var x = c.ctx, S = c.size, R = S / 2;
+  x.fillStyle = '#F1F1F4';
+  x.beginPath(); x.arc(R, R, c.photoR, 0, Math.PI * 2); x.fill();
+  x.fillStyle = '#9A9BA1';
+  x.font = 'bold ' + (S * 0.28) + 'px Arial';
+  x.textAlign = 'center'; x.textBaseline = 'middle';
+  x.fillText(ini, R, R + S * 0.01);
+  placeholderCache[ini] = c.canvas.toDataURL('image/jpeg', 0.85);
+  return placeholderCache[ini];
+}
+
+// Canvas base: fondo blanco + anillo gradiente morado→cyan
+function ringCanvas() {
+  var S = 260, R = S / 2, ring = 10, gap = 7;
+  var canvas = document.createElement('canvas');
+  canvas.width = S; canvas.height = S;
+  var x = canvas.getContext('2d');
+  x.fillStyle = '#FFFFFF'; x.fillRect(0, 0, S, S);
+  var g = x.createLinearGradient(0, 0, S, S);
+  g.addColorStop(0, '#7B2FFF'); g.addColorStop(1, '#00D4FF');
+  x.fillStyle = g;
+  x.beginPath(); x.arc(R, R, R - 1, 0, Math.PI * 2); x.fill();
+  x.fillStyle = '#FFFFFF';
+  x.beginPath(); x.arc(R, R, R - ring, 0, Math.PI * 2); x.fill();
+  return { canvas: canvas, ctx: x, size: S, photoR: R - ring - gap };
+}
+
+function render() {
+  document.getElementById('previewBox').innerHTML = buildSignature(getData());
+}
+
+['nombre','cargo','telefono'].forEach(function(id) {
+  document.getElementById(id).addEventListener('input', render);
+});
+render();
+
+// --- Foto: recorte centrado + blanco y negro + anillo gradiente ---
+document.getElementById('fotoBtn').addEventListener('click', function() {
+  document.getElementById('fotoInput').click();
+});
+
+document.getElementById('fotoInput').addEventListener('change', function(e) {
+  var file = e.target.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(ev) {
+    var img = new Image();
+    img.onload = function() {
+      var c = ringCanvas();
+      var S = c.size, R = S / 2;
+
+      // recorte cuadrado centrado → canvas temporal → blanco y negro
+      var t = document.createElement('canvas');
+      t.width = S; t.height = S;
+      var tx = t.getContext('2d');
+      var side = Math.min(img.width, img.height);
+      tx.drawImage(img, (img.width - side) / 2, (img.height - side) / 2, side, side, 0, 0, S, S);
+      var d = tx.getImageData(0, 0, S, S), p = d.data;
+      for (var i = 0; i < p.length; i += 4) {
+        var l = 0.299 * p[i] + 0.587 * p[i+1] + 0.114 * p[i+2];
+        p[i] = p[i+1] = p[i+2] = l;
+      }
+      tx.putImageData(d, 0, 0);
+
+      // pegar dentro del anillo
+      c.ctx.save();
+      c.ctx.beginPath(); c.ctx.arc(R, R, c.photoR, 0, Math.PI * 2); c.ctx.clip();
+      c.ctx.drawImage(t, 0, 0);
+      c.ctx.restore();
+
+      fotoData = c.canvas.toDataURL('image/jpeg', 0.85);
+
+      var thumb = document.getElementById('fotoThumb');
+      thumb.style.backgroundImage = 'url(' + fotoData + ')';
+      thumb.textContent = '';
+      thumb.classList.add('has-foto');
+      render();
+    };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+});
+
+// --- Copiar firma ---
+document.getElementById('copyBtn').addEventListener('click', function() {
+  var btn = this;
+
+  // La foto es obligatoria: sin foto la firma queda con iniciales de relleno
+  if (!fotoData) {
+    var row = document.getElementById('fotoRow');
+    row.classList.remove('need');
+    void row.offsetWidth; // reinicia la animación
+    row.classList.add('need');
+    btn.textContent = 'Primero sube tu foto ↑';
+    btn.classList.add('warn');
+    setTimeout(function() {
+      btn.textContent = 'Copiar mi firma';
+      btn.classList.remove('warn');
+    }, 2500);
+    return;
+  }
+
+  function ok() {
+    btn.textContent = '✓ Firma copiada — ahora pégala en Gmail';
+    btn.classList.add('copied');
+    setTimeout(function() {
+      btn.textContent = 'Copiar mi firma';
+      btn.classList.remove('copied');
+    }, 3500);
+  }
+
+  // Método principal: seleccionar la vista previa y copiar
+  // (preserva la foto incrustada mejor que la API moderna del portapapeles)
+  var box = document.getElementById('previewBox');
+  var range = document.createRange();
+  range.selectNodeContents(box);
+  var sel = window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(range);
+  var copied = false;
+  try { copied = document.execCommand('copy'); } catch (err) { copied = false; }
+  sel.removeAllRanges();
+
+  if (copied) { ok(); return; }
+
+  // Fallback: API moderna del portapapeles
+  if (navigator.clipboard && window.ClipboardItem) {
+    var html = buildSignature(getData());
+    var blob = new Blob([html], { type: 'text/html' });
+    var text = new Blob([box.innerText], { type: 'text/plain' });
+    navigator.clipboard.write([new ClipboardItem({ 'text/html': blob, 'text/plain': text })]).then(ok);
+  }
+});
+</script>
+</body>
+</html>
