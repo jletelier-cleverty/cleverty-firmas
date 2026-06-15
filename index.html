@@ -250,13 +250,13 @@ function buildSignature(d) {
     phoneRow =
       '<div style="padding-top:5px;"><a href="' + waUrl + '" target="_blank" style="text-decoration:none;color:' + dark + ';">' +
       '<img src="' + asset('icons/phone.png') + '" width="14" height="14" alt="" style="vertical-align:-2px;border:0;">' +
-      '<span style="font-family:' + F + ';font-size:12px;font-weight:500;color:' + dark + ';">&nbsp;&nbsp;' + esc(formatPhone(d.telefono)) + '</span></a></div>';
+      '<span style="font-family:' + F + ';font-size:12px;font-weight:500;color:' + dark + ';text-decoration:none;">&nbsp;&nbsp;' + esc(formatPhone(d.telefono)) + '</span></a></div>';
   }
 
   var addressRow =
     '<div style="padding-top:0px;"><a href="' + LINKS.maps + '" target="_blank" style="text-decoration:none;color:' + dark + ';">' +
       '<img src="' + asset('icons/location.png') + '" width="13" height="13" alt="" style="vertical-align:-2px;border:0;">' +
-      '<span style="font-family:' + F + ';font-size:12px;font-weight:500;color:' + dark + ';">&nbsp;&nbsp;Apoquindo 3200, Las Condes</span>' +
+      '<span style="font-family:' + F + ';font-size:12px;font-weight:500;color:' + dark + ';text-decoration:none;">&nbsp;&nbsp;Apoquindo 3200, Las Condes</span>' +
     '</a></div>';
 
   var socialRow =
@@ -296,10 +296,10 @@ function buildSignature(d) {
         '<div style="font-family:' + F + ';font-size:9px;font-weight:500;color:' + gray + ';letter-spacing:2px;padding:2px 0 14px;white-space:nowrap;">EDIFICIOS DEL FUTURO</div>' +
         '<div><a href="' + LINKS.appstore + '" target="_blank" style="text-decoration:none;color:' + dark + ';">' +
           '<img src="' + asset('icons/apple.png') + '" width="10" height="10" alt="" style="vertical-align:-1px;border:0;">' +
-          '<span style="font-family:' + F + ';font-size:10px;font-weight:500;color:' + dark + ';">&nbsp;&nbsp;App Store</span></a></div>' +
+          '<span style="font-family:' + F + ';font-size:10px;font-weight:500;color:' + dark + ';text-decoration:none;">&nbsp;&nbsp;App Store</span></a></div>' +
         '<div style="padding-top:5px;"><a href="' + LINKS.googleplay + '" target="_blank" style="text-decoration:none;color:' + dark + ';">' +
           '<img src="' + asset('icons/play.png') + '" width="10" height="10" alt="" style="vertical-align:-1px;border:0;">' +
-          '<span style="font-family:' + F + ';font-size:10px;font-weight:500;color:' + dark + ';">&nbsp;&nbsp;Google Play</span></a></div>' +
+          '<span style="font-family:' + F + ';font-size:10px;font-weight:500;color:' + dark + ';text-decoration:none;">&nbsp;&nbsp;Google Play</span></a></div>' +
       '</td>' +
     '</tr>' +
   '</table>';
