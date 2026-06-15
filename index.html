@@ -245,26 +245,26 @@ function buildSignature(d) {
   var phoneRow = '';
   if (d.telefono) {
     phoneRow =
-      '<div style="padding-top:2px;"><a href="' + waUrl + '" target="_blank" style="text-decoration:none;color:' + dark + ';">' +
+      '<div style="padding-top:0px;"><a href="' + waUrl + '" target="_blank" style="text-decoration:none;color:' + dark + ';">' +
       '<img src="' + asset('icons/phone.png') + '" width="15" height="15" alt="" style="vertical-align:-2px;border:0;">' +
       '<span style="font-family:' + F + ';font-size:13px;font-weight:500;color:' + dark + ';">&nbsp;&nbsp;' + esc(formatPhone(d.telefono)) + '</span></a></div>';
   }
 
   var addressRow =
-    '<div style="padding-top:2px;">' +
+    '<div style="padding-top:0px;">' +
       '<a href="' + LINKS.maps + '" target="_blank" style="text-decoration:none;">' +
         '<span style="font-family:' + F + ';font-size:12px;font-weight:400;color:' + gray + ';">Apoquindo 3200, Las Condes</span>' +
       '</a>' +
     '</div>';
 
   var socialRow =
-    '<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-top:5px;"><tr>' +
-      '<td style="padding-right:9px;"><a href="' + LINKS.linkedin + '" target="_blank" style="text-decoration:none;"><img src="' + asset('icons/linkedin.png') + '" width="22" height="22" alt="LinkedIn" style="display:block;border:0;"></a></td>' +
-      '<td style="padding-right:9px;"><a href="' + LINKS.instagram + '" target="_blank" style="text-decoration:none;"><img src="' + asset('icons/instagram.png') + '" width="22" height="22" alt="Instagram" style="display:block;border:0;"></a></td>' +
+    '<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-top:3px;"><tr>' +
+      '<td style="padding-right:9px;"><a href="' + LINKS.linkedin + '" target="_blank" style="text-decoration:none;"><img src="' + asset('icons/linkedin.png') + '" width="18" height="18" alt="LinkedIn" style="display:block;border:0;"></a></td>' +
+      '<td style="padding-right:9px;"><a href="' + LINKS.instagram + '" target="_blank" style="text-decoration:none;"><img src="' + asset('icons/instagram.png') + '" width="18" height="18" alt="Instagram" style="display:block;border:0;"></a></td>' +
       (d.telefono
-        ? '<td style="padding-right:9px;"><a href="' + waUrl + '" target="_blank" style="text-decoration:none;"><img src="' + asset('icons/whatsapp.png') + '" width="22" height="22" alt="WhatsApp" style="display:block;border:0;"></a></td>'
+        ? '<td style="padding-right:9px;"><a href="' + waUrl + '" target="_blank" style="text-decoration:none;"><img src="' + asset('icons/whatsapp.png') + '" width="18" height="18" alt="WhatsApp" style="display:block;border:0;"></a></td>'
         : '') +
-      '<td><a href="' + LINKS.web + '" target="_blank" style="text-decoration:none;"><img src="' + asset('icons/web.png') + '" width="22" height="22" alt="cleverty.app" style="display:block;border:0;"></a></td>' +
+      '<td><a href="' + LINKS.web + '" target="_blank" style="text-decoration:none;"><img src="' + asset('icons/web.png') + '" width="18" height="18" alt="cleverty.app" style="display:block;border:0;"></a></td>' +
     '</tr></table>';
 
   return '' +
@@ -278,8 +278,8 @@ function buildSignature(d) {
       '<td style="width:1px;background-color:#E8E9ED;font-size:1px;">&nbsp;</td>' +
       // DATOS
       '<td style="vertical-align:middle;padding-left:22px;">' +
-        '<div style="font-family:' + F + ';font-size:18px;font-weight:600;color:' + dark + ';line-height:1.2;letter-spacing:-0.2px;white-space:nowrap;">' + esc(d.nombre) + '</div>' +
-        '<div style="font-size:13px;line-height:1.4;padding-top:2px;white-space:nowrap;">' +
+        '<div style="font-family:' + F + ';font-size:18px;font-weight:600;color:' + dark + ';line-height:1.1;letter-spacing:-0.2px;white-space:nowrap;">' + esc(d.nombre) + '</div>' +
+        '<div style="font-size:13px;line-height:1.1;padding-top:1px;white-space:nowrap;">' +
           '<span style="font-family:' + F + ';font-weight:500;color:' + dark + ';">' + esc(d.cargo) + '</span>' +
         '</div>' +
         phoneRow +
