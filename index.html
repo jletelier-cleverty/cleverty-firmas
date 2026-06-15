@@ -237,7 +237,6 @@ function buildSignature(d) {
   var F    = "'Poppins','Century Gothic','Avenir Next','Avenir','Segoe UI',Arial,sans-serif"; // Poppins primero; fallbacks geométricos
   var dark = '#16193A';   // azul marino del diseño
   var gray = '#A7A9B3';   // gris de los rótulos espaciados
-  var dot  = '#C2C3CB';   // gris del punto separador
 
   // WhatsApp personal a partir del teléfono
   var waUrl = waLink(d.telefono);
@@ -274,8 +273,6 @@ function buildSignature(d) {
         '<div style="font-family:' + F + ';font-size:18px;font-weight:600;color:' + dark + ';line-height:1.2;letter-spacing:-0.2px;white-space:nowrap;">' + esc(d.nombre) + '</div>' +
         '<div style="font-size:13px;line-height:1.4;padding-top:2px;white-space:nowrap;">' +
           '<span style="font-family:' + F + ';font-weight:500;color:' + dark + ';">' + esc(d.cargo) + '</span>' +
-          '<span style="font-family:' + F + ';color:' + dot + ';font-weight:600;">&nbsp;&middot;&nbsp;</span>' +
-          '<a href="' + LINKS.web + '" target="_blank" style="text-decoration:none;"><span style="font-family:' + F + ';font-weight:500;color:#7B2FFF;">Cleverty</span></a>' +
         '</div>' +
         phoneRow +
         socialRow +
