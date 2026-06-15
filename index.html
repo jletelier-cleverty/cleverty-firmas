@@ -251,11 +251,10 @@ function buildSignature(d) {
   }
 
   var addressRow =
-    '<div style="padding-top:0px;">' +
-      '<a href="' + LINKS.maps + '" target="_blank" style="text-decoration:none;">' +
-        '<span style="font-family:' + F + ';font-size:12px;font-weight:400;color:' + gray + ';">Apoquindo 3200, Las Condes</span>' +
-      '</a>' +
-    '</div>';
+    '<div style="padding-top:0px;"><a href="' + LINKS.maps + '" target="_blank" style="text-decoration:none;color:' + dark + ';">' +
+      '<img src="' + asset('icons/location.png') + '" width="13" height="13" alt="" style="vertical-align:-2px;border:0;">' +
+      '<span style="font-family:' + F + ';font-size:13px;font-weight:500;color:' + dark + ';">&nbsp;&nbsp;Apoquindo 3200, Las Condes</span>' +
+    '</a></div>';
 
   var socialRow =
     '<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-top:3px;"><tr>' +
@@ -272,15 +271,17 @@ function buildSignature(d) {
     '<tr>' +
       // FOTO (b/n con anillo gradiente)
       '<td style="vertical-align:middle;padding-right:22px;">' +
-        '<img src="' + d.foto + '" alt="' + esc(d.nombre) + '" width="88" height="88" style="display:block;width:88px;height:88px;border-radius:50%;border:0;">' +
+        '<img src="' + d.foto + '" alt="' + esc(d.nombre) + '" width="100" height="100" style="display:block;width:100px;height:100px;border-radius:50%;border:0;">' +
       '</td>' +
       // SEPARADOR (entre foto e info)
-      '<td style="width:1px;background-color:#E8E9ED;font-size:1px;">&nbsp;</td>' +
+      '<td style="vertical-align:middle;padding:0;">' +
+        '<div style="width:1px;height:52px;background:linear-gradient(to bottom,transparent 0%,#C8CAD4 28%,#C8CAD4 72%,transparent 100%);"></div>' +
+      '</td>' +
       // DATOS
       '<td style="vertical-align:middle;padding-left:22px;">' +
         '<div style="font-family:' + F + ';font-size:18px;font-weight:600;color:' + dark + ';line-height:1.1;letter-spacing:-0.2px;white-space:nowrap;">' + esc(d.nombre) + '</div>' +
         '<div style="font-size:13px;line-height:1.1;padding-top:1px;white-space:nowrap;">' +
-          '<span style="font-family:' + F + ';font-weight:500;color:' + dark + ';">' + esc(d.cargo) + '</span>' +
+          '<span style="font-family:' + F + ';font-weight:600;color:#72748A;">' + esc(d.cargo) + '</span>' +
         '</div>' +
         phoneRow +
         addressRow +
@@ -291,11 +292,11 @@ function buildSignature(d) {
         '<a href="' + LINKS.web + '" target="_blank" style="text-decoration:none;"><img src="' + asset('cleverty-logo-firma.png') + '" alt="Cleverty" width="112" style="width:112px;height:auto;border:0;"></a>' +
         '<div style="font-family:' + F + ';font-size:9px;font-weight:500;color:' + gray + ';letter-spacing:2px;padding:2px 0 14px;white-space:nowrap;">EDIFICIOS DEL FUTURO</div>' +
         '<div><a href="' + LINKS.appstore + '" target="_blank" style="text-decoration:none;color:' + dark + ';">' +
-          '<img src="' + asset('icons/apple.png') + '" width="13" height="13" alt="" style="vertical-align:-2px;border:0;">' +
-          '<span style="font-family:' + F + ';font-size:12.5px;font-weight:500;color:' + dark + ';">&nbsp;&nbsp;App Store</span></a></div>' +
+          '<img src="' + asset('icons/apple.png') + '" width="10" height="10" alt="" style="vertical-align:-1px;border:0;">' +
+          '<span style="font-family:' + F + ';font-size:10px;font-weight:500;color:' + dark + ';">&nbsp;&nbsp;App Store</span></a></div>' +
         '<div style="padding-top:5px;"><a href="' + LINKS.googleplay + '" target="_blank" style="text-decoration:none;color:' + dark + ';">' +
-          '<img src="' + asset('icons/play.png') + '" width="12" height="12" alt="" style="vertical-align:-1px;border:0;">' +
-          '<span style="font-family:' + F + ';font-size:12.5px;font-weight:500;color:' + dark + ';">&nbsp;&nbsp;Google Play</span></a></div>' +
+          '<img src="' + asset('icons/play.png') + '" width="10" height="10" alt="" style="vertical-align:-1px;border:0;">' +
+          '<span style="font-family:' + F + ';font-size:10px;font-weight:500;color:' + dark + ';">&nbsp;&nbsp;Google Play</span></a></div>' +
       '</td>' +
     '</tr>' +
   '</table>';
